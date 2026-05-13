@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FashionHero Plus — Premium dla kupujących</title>
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --ink: #1A1A1F;
+    --ink-muted: #5C5C66;
+    --accent: #1F2940;
+    --accent-2: #B8956A;
+    --line: #E6E4DC;
+    --card: #FFFFFF;
+    --radius: 6px;
+    --shadow: 0 1px 2px rgba(26,26,31,.04), 0 8px 32px rgba(26,26,31,.05);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .brand { font-weight: 700; letter-spacing: 0.5px; font-size: 18px; }
+  .brand .plus {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    vertical-align: 2px;
+  }
+  nav.top .links { display: flex; gap: 24px; font-size: 14px; color: var(--ink-muted); }
+  nav.top .links a { text-decoration: none; }
+  nav.top .links a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero {
+    padding: 96px 0 80px;
+    text-align: center;
+  }
+  .hero .pill {
+    display: inline-block;
+    background: rgba(31,41,64,.08);
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.08;
+    margin: 0 0 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent-2);
+  }
+  .hero .sub {
+    max-width: 580px;
+    margin: 0 auto 36px;
+    font-size: 19px;
+    color: var(--ink-muted);
+  }
+  .form-inline {
+    display: inline-flex;
+    gap: 8px;
+    background: var(--card);
+    padding: 8px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .form-inline input {
+    border: none;
+    outline: none;
+    padding: 14px 16px;
+    font-size: 16px;
+    min-width: 280px;
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: transform .12s ease, opacity .12s ease;
+  }
+  .btn-primary:hover { opacity: .92; }
+  .btn-primary:active { transform: translateY(1px); }
+  .hint {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  /* perks */
+  section.perks { padding: 64px 0; }
+  section .eyebrow {
+    text-align: center;
+    color: var(--accent-2);
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  section h2 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    margin: 0 0 56px;
+  }
+  .perk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .perk {
+    background: var(--card);
+    padding: 32px 26px;
+  }
+  .perk .icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(31,41,64,.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 18px;
+    color: var(--accent);
+  }
+  .perk h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .perk p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+
+  /* pricing */
+  section.pricing { padding: 64px 0 96px; background: white; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .price-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 720px;
+    margin: 0 auto;
+    gap: 16px;
+  }
+  .price {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 36px 32px;
+    position: relative;
+  }
+  .price.featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(31,41,64,.06);
+  }
+  .price .badge {
+    position: absolute;
+    top: -10px; right: 24px;
+    background: var(--accent-2);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.8px;
+  }
+  .price h4 { margin: 0 0 8px; font-size: 14px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1.4px; }
+  .price .amount {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    line-height: 1;
+    margin: 8px 0 4px;
+  }
+  .price .period { color: var(--ink-muted); font-size: 14px; margin-bottom: 22px; }
+  .price .save { color: var(--accent-2); font-size: 13px; font-weight: 600; margin-bottom: 22px; }
+  .price ul { list-style: none; padding: 0; margin: 0 0 24px; }
+  .price li { padding: 6px 0; font-size: 14px; color: var(--ink-muted); position: relative; padding-left: 24px; }
+  .price li::before {
+    content: "✓";
+    position: absolute; left: 0; top: 6px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .price .btn-primary { width: 100%; }
+
+  /* why now */
+  section.why { padding: 80px 0; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .why-text h2 { text-align: left; font-size: 32px; margin-bottom: 24px; }
+  .why-text p { color: var(--ink-muted); margin: 0 0 16px; font-size: 16px; }
+  .stat-card {
+    background: var(--accent);
+    color: white;
+    padding: 40px;
+    border-radius: 8px;
+  }
+  .stat-card .big { font-size: 56px; font-weight: 700; letter-spacing: -2px; line-height: 1; margin-bottom: 6px; }
+  .stat-card .label { font-size: 14px; opacity: .8; margin-bottom: 28px; }
+  .stat-card .quote { font-size: 15px; font-style: italic; opacity: .9; border-left: 2px solid rgba(255,255,255,.4); padding-left: 14px; }
+
+  /* cta */
+  section.cta-band {
+    padding: 80px 0;
+    background: var(--accent);
+    color: white;
+    text-align: center;
+  }
+  section.cta-band h2 {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  section.cta-band p {
+    color: rgba(255,255,255,.78);
+    max-width: 540px;
+    margin: 0 auto 32px;
+    font-size: 17px;
+  }
+  section.cta-band .form-inline { background: white; }
+  section.cta-band .form-inline input { color: var(--ink); }
+
+  /* faq */
+  section.faq { padding: 80px 0; }
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item h4 { margin: 0 0 8px; font-size: 17px; font-weight: 600; }
+  .faq-item p { margin: 0; color: var(--ink-muted); font-size: 15px; }
+
+  /* footer */
+  footer {
+    padding: 36px 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  /* mobile */
+  @media (max-width: 720px) {
+    .hero { padding: 64px 0 56px; }
+    .hero h1 { font-size: 40px; }
+    .hero .sub { font-size: 17px; }
+    .form-inline { flex-direction: column; }
+    .form-inline input { min-width: 0; width: 100%; }
+    .form-inline button { width: 100%; }
+    .price-cards { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; gap: 32px; }
+    nav.top .links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="brand">FashionHero<span class="plus">PLUS</span></div>
+  <div class="links">
+    <a href="#perks">Co dostajesz</a>
+    <a href="#pricing">Cena</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="pill">Wczesny dostęp · ograniczone miejsca</div>
+    <h1>Kupuj modę <em>świadomie</em>,<br/>bez kompromisów.</h1>
+    <p class="sub">FashionHero Plus to członkostwo dla osób, które kupują regularnie. Darmowa dostawa express, wcześniejszy dostęp do dropów, kuratowane kolekcje i AI stylista raz w miesiącu — wszystko w jednym pakiecie.</p>
+    <form class="form-inline" onsubmit="return handleSignup(event)">
+      <input type="email" name="email" placeholder="Twój email" required />
+      <button class="btn-primary" type="submit">Zapisz mnie na waitlistę</button>
+    </form>
+    <div class="hint">Bez zobowiązania. Pierwsi członkowie dostaną 50% rabatu na pierwszy rok.</div>
+  </div>
+</header>
+
+<section class="perks" id="perks">
+  <div class="container">
+    <div class="eyebrow">5 powodów</div>
+    <h2>Co dostajesz w Plus</h2>
+    <div class="perk-grid">
+      <div class="perk">
+        <div class="icon">⚡</div>
+        <h3>Darmowa dostawa express</h3>
+        <p>Każde zamówienie. Bez progu cenowego. Standardowo do 24h, w większych miastach tego samego dnia.</p>
+      </div>
+      <div class="perk">
+        <div class="icon">🔓</div>
+        <h3>Wcześniejszy dostęp</h3>
+        <p>Dropy, wyprzedaże i limitowane kolekcje 24–48h przed publicznym startem. Tygodniowe wyprzedaże — dla Plusów godzinę wcześniej.</p>
+      </div>
+      <div class="perk">
+        <div class="icon">✨</div>
+        <h3>Ekskluzywne kolekcje</h3>
+        <p>Kuratowane kapsuły od top sellerów, dostępne tylko dla członków. Nowa kolekcja co miesiąc.</p>
+      </div>
+      <div class="perk">
+        <div class="icon">↩</div>
+        <h3>30 dni na zwrot</h3>
+        <p>Standardowo 14, dla Plusów dwa razy więcej. Bo wybór ubrań to czas, nie tylko zakupy.</p>
+      </div>
+      <div class="perk">
+        <div class="icon">👗</div>
+        <h3>AI Style Concierge</h3>
+        <p>Raz w miesiącu osobista sesja stylizacyjna — opowiadasz o wydarzeniu, dostajesz dopasowane propozycje z marketplace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="eyebrow">Wybierz plan</div>
+    <h2>Prosto. Bez kombinacji.</h2>
+    <div class="price-cards">
+      <div class="price">
+        <h4>Miesięcznie</h4>
+        <div class="amount">19,90 zł</div>
+        <div class="period">/ miesiąc, rezygnacja w każdej chwili</div>
+        <div class="save">&nbsp;</div>
+        <ul>
+          <li>Wszystkie perki Plus</li>
+          <li>Bez zobowiązania długoterminowego</li>
+          <li>Rezygnacja jednym kliknięciem</li>
+        </ul>
+        <button class="btn-primary" onclick="document.querySelector('input[name=email]').focus()">Zacznij od miesiąca</button>
+      </div>
+      <div class="price featured">
+        <div class="badge">OSZCZĘDZASZ 17%</div>
+        <h4>Rocznie</h4>
+        <div class="amount">199 zł</div>
+        <div class="period">/ rok — ~16,60 zł / miesiąc</div>
+        <div class="save">Zwraca się po 5–6 zamówieniach z darmową dostawą.</div>
+        <ul>
+          <li>Wszystkie perki Plus</li>
+          <li>Dwa dodatkowe miesiące gratis</li>
+          <li>Pierwszeństwo do limitowanych kapsuł</li>
+        </ul>
+        <button class="btn-primary" onclick="document.querySelector('input[name=email]').focus()">Wybierz roczny</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text">
+        <h2>Dlaczego teraz?</h2>
+        <p>Średnia kupująca na FashionHero zamawia co 2 tygodnie. Po 5–6 zamówieniach miesięcznie sama dostawa kosztuje cię więcej niż roczna subskrypcja Plus.</p>
+        <p>Do tego dostajesz to, czego nie zbudujesz darmowymi kuponami: wcześniejszy dostęp, kuratorowane kolekcje, więcej czasu na zwrot i osobistego AI stylistę.</p>
+        <p>Bez points-for-discounts. Bez programu lojalnościowego. Bundled value od pierwszego dnia.</p>
+      </div>
+      <div class="stat-card">
+        <div class="big">8 zł</div>
+        <div class="label">Średni zysk FashionHero na zamówieniu — i spada</div>
+        <div class="quote">„Plus to drugi silnik przychodu, którego potrzebujemy zanim pójdziemy po kolejną rundę finansowania."<br/>— Maja, CEO FashionHero</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Zarezerwuj swoje miejsce</h2>
+    <p>Plus startuje w lipcu. Pierwsze 1000 osób na waitliście dostaje 50% rabatu na pierwszy rok i lifetime'owy access do limitowanych kapsuł #1 i #2.</p>
+    <form class="form-inline" onsubmit="return handleSignup(event)">
+      <input type="email" name="email" placeholder="Twój email" required />
+      <button class="btn-primary" type="submit">Zapisz mnie</button>
+    </form>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="eyebrow">FAQ</div>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>Czy mogę anulować w każdej chwili?</h4>
+        <p>Tak — jednym kliknięciem w ustawieniach konta. Plan miesięczny rezygnujesz od następnego cyklu, roczny — proporcjonalny zwrot za niewykorzystane miesiące.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Czy Plus dotyczy wszystkich produktów na FashionHero?</h4>
+        <p>Tak. Darmowa dostawa i wydłużone zwroty obejmują pełny katalog. Ekskluzywne kapsuły to dodatkowa półka, której nie zobaczą osoby bez Plus.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Co z osobami, które kupują rzadko?</h4>
+        <p>Plan miesięczny startuje od 19,90 zł — opłaca się od 2 zamówień miesięcznie z dostawą. Plus nie jest dla wszystkich; jest dla osób, dla których moda online to nawyk, nie wyjątek.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Czym to się różni od FashionHero Club?</h4>
+        <p>FashionHero Club był programem punktowym — zbierałaś punkty, wymieniałaś na rabat. Plus to bundled value: realne perki w pakiecie, bez gry w zbieranie punktów.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Czy AI Style Concierge to czat z botem?</h4>
+        <p>Tak, ale wytrenowany na pełnym katalogu FashionHero i Twoich poprzednich zamówieniach. Opowiadasz o wydarzeniu („wesele plażowe w lipcu, budżet 400 zł"), dostajesz 3–5 spersonalizowanych propozycji w 30 sekund.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  FashionHero Plus — w przygotowaniu. © 2026 FashionHero. Prototyp Q1.3 / AI Product Heroes.
+</footer>
+
+<script>
+  function handleSignup(e) {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    // For the smoke test, just acknowledge — PostHog instrumentation will hook here in Q4.1
+    form.innerHTML = '<div style="padding: 14px 16px; color: #1F2940; font-weight: 600;">Dzięki, ' + email + ' — odezwiemy się jak Plus wystartuje.</div>';
+    if (window.localStorage) {
+      try {
+        const list = JSON.parse(localStorage.getItem('plus_waitlist') || '[]');
+        list.push({email, at: new Date().toISOString()});
+        localStorage.setItem('plus_waitlist', JSON.stringify(list));
+      } catch (err) {}
+    }
+    return false;
+  }
+</script>
+
+</body>
+</html>
